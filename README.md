@@ -11,9 +11,9 @@ The example below shows how to create a CloudEvent handler on [Auth0 Webtasks](h
 First, write the webtask script: 
 
 ```
-cat > cloud-event-handler.js <<EOF
+cat > cloud-events-handler.js <<EOF
 'use strict';
-module.exports = class CloudEventHandler {
+module.exports = class CloudEventsHandler {
 
   'io.goextend.helloWorld'(event) {
     console.log("Hello, world event received!");
@@ -24,6 +24,13 @@ module.exports = class CloudEventHandler {
 EOF
 ```
 
+Ensure you have *wt-cli* installed and configured (this is typically only done once):
+
+```bash
+npm install -g wt-cli
+npm init
+```
+
 Then, create the webtask using: 
 
 ```bash
@@ -32,7 +39,7 @@ wt create cloud-events-handler.js \
   --middleware cloudevents-extend-api
 ```
 
-Notice the two middleware parameters. The first one is adding support for parsing `application/cloudevents+json` requests, which allows accepting CloudEvent messages following the [structed content mode](https://github.com/cloudevents/spec/blob/v0.1/http-transport-binding.md#32-structured-content-mode) of the HTTP binding for CloudEvents. The second middleware adds support for the simple JavaScript programming model above. 
+Notice the two middleware parameters. The first one is adding support for parsing `application/cloudevents+json` requests, which allows accepting CloudEvents messages following the [structed content mode](https://github.com/cloudevents/spec/blob/v0.1/http-transport-binding.md#32-structured-content-mode) of the HTTP binding for CloudEvents. The second middleware adds support for the simple JavaScript programming model above. 
 
 You can then take the resulting URL and use it as a consumer of CloudEvents sent over HTTP using the structured content mode. You can test your consumer by making a simple request using *curl* (substitute your URL in the request below): 
 
@@ -61,7 +68,6 @@ The *cloudevents-extend-api* will reject unauthorized requests with HTTP 403.
 
 You can provide your CloudEvent handler code with secrets for communicating with external services (e.g. Slack or Twilio): 
 
-```
 ```bash
 wt create cloud-events-handler.js \
   --middleware cloudevents-parser \
@@ -84,3 +90,10 @@ module.exports = class CloudEventHandler {
 
 };
 ```
+### Extend Editor
+
+You can edit the code of your CloudEvents handler using the Extend Editor by opening up a browser with `wt edit cloud-events-handler`:
+
+![image](https://user-images.githubusercontent.com/822369/39667354-b468f5ae-5068-11e8-9c58-5ff4b331b6c2.png)
+
+Extend Editor provides an embedded experience for developing CloudEvent consumers within SaaS platforms that act as CloudEvent producers. Check out [Extend by Auth0](https://goextend.io) for more. 
