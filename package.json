@@ -1,0 +1,26 @@
+{
+    "name": "cloudevents-extend-api",
+    "version": "0.0.1",
+    "description": "CloudEvents programming model for Extend",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/goextend/cloudevents.git"
+    },
+    "keywords": [
+      "cloudevents",
+      "webhooks",
+      "serverless",
+      "cloud"
+    ],
+    "author": "Tomasz Janczuk (tomasz@janczuk.org)",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/goextend/cloudevents-extend-api/issues"
+    },
+    "homepage": "https://github.com/goextend/cloudevents-extend-api#readme"
+  }
+  
