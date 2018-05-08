@@ -13,13 +13,11 @@ First, write the webtask script:
 ```
 cat > cloud-events-handler.js <<EOF
 'use strict';
-module.exports = class CloudEventsHandler {
-
-  'io.goextend.helloWorld'(event) {
-    console.log("Hello, world event received!");
-  }
-
-  // Add other events here as needed
+module.exports = ce => {
+    ce.on('io.goextend.helloWorld', ctx => {
+        console.log("Hello, world event received!", ctx.body);
+    });
+    // Register for other events here
 };
 EOF
 ```
@@ -80,16 +78,15 @@ These secrets can be accessed within the code in the following way:
 
 ```javascript
 'use strict';
-module.exports = class CloudEventHandler {
-
-  'io.goextend.helloWorld'(event) {
-    let twilio_key = this.secrets.TWILIO_KEY;
-    let slack_url = this.secrets.SLACK_URL;
-    // ...
-  }
-
+module.exports = ce => {
+    ce.on('io.goextend.helloWorld', ctx => {
+        let twilio_key = ctx.secrets.TWILIO_KEY;
+        let slack_url = ctx.secrets.SLACK_URL;
+        // ...
+    });
 };
 ```
+
 ### Extend Editor
 
 You can edit the code of your CloudEvents handler using the Extend Editor by opening up a browser with `wt edit cloud-events-handler`:

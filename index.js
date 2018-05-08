@@ -1,18 +1,34 @@
 'use strict';
 
-let instance;
+let events;
 
 module.exports = () => {
     return (req, res, next) => {
-      return instance ? handleRequest() : compileHandler();
+      return events ? handleRequest() : compileHandler();
       
       function compileHandler() {
-        req.webtaskContext.compiler.nodejsCompiler(req.webtaskContext.compiler.script, (e, Func) => {
+        req.webtaskContext.compiler.nodejsCompiler(req.webtaskContext.compiler.script, (e, func) => {
           if (e) return next(e);
           
-          instance = new Func();
-          instance.secrets = req.webtaskContext.secrets;
-          instance.meta = req.webtaskContext.meta;
+          events = {};
+          function on(spec, handler) {
+            if (!Array.isArray(spec)) spec = [ spec ];
+            if (typeof handler !== 'function') {
+                let error = new Error('Second argument to the `on` call must be a function.');
+                error.statusCode = 400;
+                return next(error);
+            }
+            for (var i = 0; i < spec.length; i++) {
+                if (typeof spec[i] !== 'string') {
+                    let error = new Error('First argument to the `on` call must be a string or array of strings.');
+                    error.statusCode = 400;
+                    return next(error);
+                }
+                events[spec[i]] = handler;
+            }
+          }
+
+          func({ on });
           
           return handleRequest();
         });
@@ -37,17 +53,19 @@ module.exports = () => {
           error.statusCode = 400;
           return next(error);
         }
-        if (typeof instance[method] !== 'function') {
+        if (typeof events[method] !== 'function') {
           let error = new Error(`Unuspported eventType: ${method}.`);
           error.statusCode = 501;
           return next(error);
         }
         else {
-          if (instance[method].length === 1) {
+          if (events[method].length === 1) {
             res.writeHead(201)
             res.end(); 
           }
-          return instance[method](req.body, (e,d) => {
+
+          req.webtaskContext.body = req.body;
+          return events[method](req.webtaskContext, (e,d) => {
             if (e) return next(e);
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify(d));

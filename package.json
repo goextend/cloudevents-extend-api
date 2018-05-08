@@ -1,6 +1,6 @@
 {
     "name": "cloudevents-extend-api",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "CloudEvents programming model for Extend",
     "main": "index.js",
     "scripts": {
