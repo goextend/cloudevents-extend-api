@@ -91,6 +91,6 @@ module.exports = ce => {
 
 You can edit the code of your CloudEvents handler using the Extend Editor by opening up a browser with `wt edit cloud-events-handler`:
 
-![image](https://user-images.githubusercontent.com/822369/39667354-b468f5ae-5068-11e8-9c58-5ff4b331b6c2.png)
+![image](https://user-images.githubusercontent.com/822369/39786740-b5e36a98-52d6-11e8-87b0-3925bf7d1b80.png)
 
 Extend Editor provides an embedded experience for developing CloudEvent consumers within SaaS platforms that act as CloudEvent producers. Check out [Extend by Auth0](https://goextend.io) for more. 
