@@ -1,10 +1,10 @@
-# CloudEvents programming model for Extend by Auth0
+# CloudEvents programming model for Extend
 
 This repository provides a [webtask middleware](https://goextend.io/docs/middleware?utm_source=github&utm_medium=readme&utm_campaign=cloudevents-extend-api) that supports a simple programming model for [CloudEvents](https://github.com/cloudevents). It can be used by [Extend](https://goextend.io?utm_source=github&utm_medium=readme&utm_campaign=cloudevents-extend-api) and [Auth0 Webtask](https://webtask.io?utm_source=github&utm_medium=readme&utm_campaign=cloudevents-extend-api) users to quickly and simply implement CloudEvent consumers and optionally secure it with HTTP basic authentication. 
 
-### Gettig started 
+### Getting started 
 
-The JavaScript programming model for CloudEvents implemented in this module requires the user to implement a class with methods representing the supported CloudEvents events. At runtime, messages will be dispatched to specific methods of the class based on the `eventType` context property of the event. The class can implement any number of methods for different `eventType` values. 
+The JavaScript programming model for CloudEvents implemented in this module requires the user to subscribe to CloudEvents using simple node event handlers. At runtime, messages will be dispatched to specific handlers based on the `eventType` context property of the event. 
 
 The example below shows how to create a CloudEvent handler on [Auth0 Webtasks](https://webtask.io?utm_source=github&utm_medium=readme&utm_campaign=cloudevents-extend-api), but it is just as well applicable to [Extend](https://goextend.io?utm_source=github&utm_medium=readme&utm_campaign=cloudevents-extend-api) deployments. 
 
@@ -93,4 +93,4 @@ You can edit the code of your CloudEvents handler using the Extend Editor by ope
 
 ![image](https://user-images.githubusercontent.com/822369/39786740-b5e36a98-52d6-11e8-87b0-3925bf7d1b80.png)
 
-Extend Editor provides an embedded experience for developing CloudEvent consumers within SaaS platforms that act as CloudEvent producers. Check out [Extend by Auth0](https://goextend.io?utm_source=github&utm_medium=readme&utm_campaign=cloudevents-extend-api) for more. 
+The Extend Editor provides an embedded experience for developing CloudEvent consumers within SaaS platforms that act as CloudEvent producers. Check out [Extend by Auth0](https://goextend.io?utm_source=github&utm_medium=readme&utm_campaign=cloudevents-extend-api) for more. 
